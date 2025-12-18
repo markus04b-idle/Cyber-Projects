@@ -1,0 +1,48 @@
+def calculate_risk(asset_value, likelihood, impact):
+    return asset_value * likelihood * impact
+
+
+def risk_level(score):
+    if score <= 20:
+        return "LOW"
+    elif score <= 50:
+        return "MEDIUM"
+    else:
+        return "HIGH"
+
+
+def mitigation(level):
+    if level == "LOW":
+        return "Monitor risk and review annually."
+    elif level == "MEDIUM":
+        return "Apply security controls and monitor regularly."
+    else:
+        return "Immediate mitigation required. Implement strong controls."
+
+
+def main():
+    print("=== Cybersecurity Risk Assessment Tool ===")
+
+    try:
+        asset_value = int(input("Asset Value (1–5): "))
+        likelihood = int(input("Threat Likelihood (1–5): "))
+        impact = int(input("Impact Severity (1–5): "))
+
+        if not all(1 <= x <= 5 for x in [asset_value, likelihood, impact]):
+            raise ValueError
+
+        score = calculate_risk(asset_value, likelihood, impact)
+        level = risk_level(score)
+        action = mitigation(level)
+
+        print("\n--- Risk Assessment Result ---")
+        print(f"Risk Score: {score}")
+        print(f"Risk Level: {level}")
+        print(f"Recommended Action: {action}")
+
+    except ValueError:
+        print("❌ Invalid input. Please enter numbers between 1 and 5.")
+
+
+if __name__ == "__main__":
+    main()
